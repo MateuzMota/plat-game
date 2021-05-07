@@ -18,8 +18,8 @@ io.on('connection', (socket) => {
     state.players.push(
         {
             id: playerId,
-            x: Math.random() * (10 - 1) + 1,
-            y: Math.random() * (10 - 1) + 1,
+            x: Math.random() * (100 - 1) + 1,
+            y: Math.random() * (100 - 1) + 1,
             w: 10,
             h: 10,
         }
@@ -27,7 +27,7 @@ io.on('connection', (socket) => {
 
     socket.on('setState', function() {
         socket.emit('setup', state);
-      });
+    });
 })
 
 server.listen(3000, () => {
