@@ -25,20 +25,15 @@
                 ctx.fillStyle = "#333";
 
                 const socket = io();
-                
-                socket.on('connect', () => {
-                    const playerId = socket.playerId
-                    console.log('client conectado');
-                })
 
-                socket.on('setup', (element) => {
-                    state = element;
-                });
-                
-                requestAnimationFrame(() => {
-                    for(player of state.players) {
-                        ctx.fillRect(player.x, player.y, player.w, player.h)
-                    }
+                socket.emit('setState');
+
+                socket.on('setup', function(player) {
+                    requestAnimationFrame(() => {
+                        for(i in player) {
+                            ctx.fillRect(player[i].x, player[i].y, player[i].w, player[i].h);
+                        }
+                    })
                 })
             }
 

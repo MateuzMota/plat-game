@@ -16,7 +16,8 @@ io.on('connection', (socket) => {
     console.log(`Player ID: ${playerId}`);
 
     state.players.push(
-        playerId = {
+        {
+            id: playerId,
             x: Math.random() * (10 - 1) + 1,
             y: Math.random() * (10 - 1) + 1,
             w: 10,
@@ -24,7 +25,9 @@ io.on('connection', (socket) => {
         }
     )
 
-    socket.emit('setup', state);
+    socket.on('setState', function() {
+        socket.emit('setup', state.players);
+      });
 })
 
 server.listen(3000, () => {
