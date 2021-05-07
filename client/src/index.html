@@ -28,8 +28,8 @@
 
                 socket.emit('setState');
 
-                socket.on('setup', function(player) {
-                    draw(player);
+                socket.on('setup', function(state) {
+                    draw(state.players);
                 })
 
                 function draw(player) {

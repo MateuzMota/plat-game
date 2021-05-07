@@ -26,7 +26,7 @@ io.on('connection', (socket) => {
     )
 
     socket.on('setState', function() {
-        socket.emit('setup', state.players);
+        socket.emit('setup', state);
       });
 })
 
