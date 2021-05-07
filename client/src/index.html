@@ -14,14 +14,14 @@
 
         <script>
             window.onload = function() {
+                const createGame = require('./game');
+                const game = createGame();
+
                 const screen = document.getElementById("canvas");
                 const ctx = screen.getContext('2d');
 
-                const state = {};
-
                 ctx.width = 1280;
                 ctx.height = 720;
-
                 ctx.fillStyle = "#333";
 
                 const socket = io();
@@ -29,7 +29,12 @@
                 socket.emit('setState');
 
                 socket.on('setup', function(state) {
+                    game.state = state;
                     draw(state.players);
+                });
+
+                socket.on('run', function(run) {
+                    game.run();
                 })
 
                 function draw(player) {

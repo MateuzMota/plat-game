@@ -1,21 +1,22 @@
 const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
-const socketio = require('socket.io')
+const socketio = require('socket.io');
+const createGame = require('./game');
 
 const io = socketio(server);
 
 app.use(express.static("../client/src"));
 
-const state = {
-    players: [],
-}
+const game = createGame();
 
 io.on('connection', (socket) => {
     const playerId = socket.id;
     console.log(`Player ID: ${playerId}`);
 
-    state.players.push(
+
+
+    game.state.players.push(
         {
             id: playerId,
             x: Math.random() * (100 - 1) + 1,
@@ -25,10 +26,17 @@ io.on('connection', (socket) => {
         }
     )
 
+
+
     socket.on('setState', function() {
-        socket.emit('setup', state);
+        socket.emit('setup', game.state);
     });
-})
+});
+
+setInterval(() => {
+    game.run,
+    sockets.emit('run', 'run');
+}, 1000/50);
 
 server.listen(3000, () => {
     console.log('running...')
