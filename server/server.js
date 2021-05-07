@@ -3,7 +3,7 @@ const app = express();
 const server = require('http').createServer(app);
 const socketio = require('socket.io')
 
-const sockets = socketio(server);
+const socket = socketio(server);
 
 app.use(express.static("../client/src"));
 
@@ -11,7 +11,7 @@ const state = {
     players: []
 }
 
-sockets.on('connection', (socket) => {
+socket.on('connection', (socket) => {
     const playerId = socket.id;
     console.log(`Player ID: ${playerId}`);
 })
