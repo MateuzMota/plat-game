@@ -6,18 +6,28 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>plat-game</title>
         <style>
-            #canvas {border: 1px solid #FFF; display: block; margin: 50px auto;}
+            #canvas {border: 1px solid #000; display: block; }
         </style>
     </head>
     <body>
-        <canvas id="canvas" width="100%" height="100%"></canvas>
+        <canvas id="canvas" width="1200" height="600"></canvas>
 
         <script>
             window.onload = function() {
                 const screen = document.getElementById("canvas");
-                const ctx = canvas.getContext('2d');
+                const ctx = screen.getContext('2d');
+                ctx.width = 1200;
+                ctx.height = 600;
                 
-                
+                const player1 = {
+                    x: 80,
+                    y: 190,
+                    w: 50,
+                    h: 100,
+                }
+
+                ctx.fillStyle = "#000";
+                ctx.fillRect(player1.x, player1.y, player1.w, player1.h);
             }
         </script>
 
