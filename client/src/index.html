@@ -29,12 +29,16 @@
                 socket.emit('setState');
 
                 socket.on('setup', function(player) {
+                    draw(player);
+                })
+
+                function draw(player) {
                     requestAnimationFrame(() => {
                         for(i in player) {
                             ctx.fillRect(player[i].x, player[i].y, player[i].w, player[i].h);
                         }
                     })
-                })
+                }
             }
 
         </script>
