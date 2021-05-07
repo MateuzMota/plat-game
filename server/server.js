@@ -3,17 +3,28 @@ const app = express();
 const server = require('http').createServer(app);
 const socketio = require('socket.io')
 
-const socket = socketio(server);
+const io = socketio(server);
 
 app.use(express.static("../client/src"));
 
 const state = {
-    players: []
+    players: [],
 }
 
-socket.on('connection', (socket) => {
+io.on('connection', (socket) => {
     const playerId = socket.id;
     console.log(`Player ID: ${playerId}`);
+
+    state.players.push(
+        playerId = {
+            x: Math.random() * (10 - 1) + 1,
+            y: Math.random() * (10 - 1) + 1,
+            w: 10,
+            h: 10,
+        }
+    )
+
+    socket.emit('setup', state);
 })
 
 server.listen(3000, () => {

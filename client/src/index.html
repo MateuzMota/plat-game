@@ -18,19 +18,8 @@
                 const ctx = screen.getContext('2d');
                 ctx.width = 1280;
                 ctx.height = 720;
-                
-                const state = [];
-
-                const player1 = {
-                    x: 10,
-                    y: 10,
-                    w: 10,
-                    h: 10,
-                }
 
                 ctx.fillStyle = "#333";
-                ctx.fillRect(player1.x, player1.y, player1.w, player1.h);
-
 
                 const socket = io();
                 
@@ -39,6 +28,15 @@
                     console.log('client conectado');
                 })
 
+                socket.on('setup', (state) => {
+                    const state = state;
+                });
+                
+                requestAnimationFrame(() => {
+                    for(player of state.players) {
+                        ctx.fillRect(player.x, player.y, player.w, player.h)
+                    }
+                })
             }
 
         </script>
