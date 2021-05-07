@@ -16,6 +16,9 @@
             window.onload = function() {
                 const screen = document.getElementById("canvas");
                 const ctx = screen.getContext('2d');
+
+                const state = {};
+
                 ctx.width = 1280;
                 ctx.height = 720;
 
@@ -28,8 +31,8 @@
                     console.log('client conectado');
                 })
 
-                socket.on('setup', (state) => {
-                    const state = state;
+                socket.on('setup', (element) => {
+                    state = element;
                 });
                 
                 requestAnimationFrame(() => {
