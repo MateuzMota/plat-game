@@ -19,6 +19,8 @@
                 ctx.width = 1280;
                 ctx.height = 720;
                 
+                const state = [];
+
                 const player1 = {
                     x: 10,
                     y: 10,
@@ -28,8 +30,18 @@
 
                 ctx.fillStyle = "#333";
                 ctx.fillRect(player1.x, player1.y, player1.w, player1.h);
-            }
-        </script>
 
+
+                const socket = io();
+                
+                socket.on('connect', () => {
+                    const playerId = socket.playerId
+                    console.log('client conectado');
+                })
+
+            }
+
+        </script>
+        <script src="/socket.io/socket.io.js"></script>
     </body>
 </html>
