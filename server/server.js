@@ -2,18 +2,18 @@ const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
 const socketio = require('socket.io');
-const createGame = require('./game.js');
+const {createGame} = require('./game.js');
 
 const io = socketio(server);
 
 app.use(express.static("../client/src"));
 
-const game = createGame.createGame();
+const game = createGame();
 
 io.on('connection', (socket) => {
     const playerId = socket.id;
     console.log(`Player ID: ${playerId}`);
-
+    console.log(game);
 
 
     game.state.players.push(
@@ -34,8 +34,7 @@ io.on('connection', (socket) => {
 });
 
 setInterval(() => {
-    game.run,
-    sockets.emit('run', 'run');
+    game.run
 }, 1000/50);
 
 server.listen(3000, () => {

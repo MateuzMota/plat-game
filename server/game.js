@@ -1,18 +1,18 @@
 // Todos os direitos reservados por Mateus da Mota.
   
 module.exports = {
-    createGame() {
+    createGame: function() {
         const state = {
             world: {
                 floor: 50,
             },
-            players: {},
-            keypress: {
-                a: false,
-                w: false,
-                d: false,
-                s: false,
-            }
+            players: [],
+            // keypress: {
+            //     a: false,
+            //     w: false,
+            //     d: false,
+            //     s: false,
+            // }
         }
 
         function attWorld() {
@@ -89,10 +89,11 @@ module.exports = {
         function run() {
             //attPlayer(state.players['player']);
             attWorld();
+            
         }
 
         return {
-            //state,
+            state,
             //changeKeypress,
             run
         }
