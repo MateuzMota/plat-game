@@ -37,8 +37,7 @@ io.on('connection', (socket) => {
 });
 
 setInterval(() => {
-    game.run
-    console.log(game.state.players);
+    game.run()
 }, 1000/50);
 
 server.listen(3000, () => {
