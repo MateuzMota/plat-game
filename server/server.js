@@ -13,7 +13,6 @@ const game = createGame();
 io.on('connection', (socket) => {
     const playerId = socket.id;
     console.log(`Player ID: ${playerId}`);
-    console.log(game);
 
 
     game.state.players.push(
@@ -23,6 +22,10 @@ io.on('connection', (socket) => {
             y: Math.random() * (100 - 1) + 1,
             w: 10,
             h: 10,
+            velocity: {
+                x: 0,
+                y: 0
+            }
         }
     )
 
@@ -35,6 +38,7 @@ io.on('connection', (socket) => {
 
 setInterval(() => {
     game.run
+    console.log(game.state.players);
 }, 1000/50);
 
 server.listen(3000, () => {
