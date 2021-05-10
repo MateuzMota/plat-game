@@ -9,6 +9,7 @@ const io = socketio(server);
 app.use(express.static("../client/src"));
 
 const game = createGame();
+console.log(game);
 
 io.on('connection', (socket) => {
     const playerId = socket.id;
