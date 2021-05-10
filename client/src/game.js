@@ -14,6 +14,10 @@ function createGame() {
         }
     }
 
+    function setState(newState) {
+        Object.assign(state, newState);
+    }
+
     function attWorld() {
         const gravity = 2;
         //const friction = 1.5;
@@ -91,8 +95,9 @@ function createGame() {
     }
 
     return {
-        //state,
+        state,
         //changeKeypress,
-        run
+        run,
+        setState
     }
 }

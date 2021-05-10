@@ -15,6 +15,18 @@ module.exports = {
             // }
         }
 
+        const observers = [];
+
+        function subscribe(observerFunction) {
+            observers.push(observerFunction)
+        }
+
+        function NotifyObservers(command) {
+            for(observer of observers) {
+                observer(command);
+            }
+        }
+
         function attWorld() {
             const gravity = 2;
             //const friction = 1.5;
@@ -90,10 +102,15 @@ module.exports = {
             //attPlayer(state.players['player']);
             attWorld();
             
+
+           NotifyObservers({
+                type: 'run',
+            });
         }
 
         return {
             state,
+            subscribe,
             //changeKeypress,
             run
         }

@@ -28,21 +28,27 @@
                 socket.emit('setState');
 
                 socket.on('setup', function(state) {
-                    game.state = state;
-                    draw(state.players);
+                    game.setState(state);
+                    
                 });
+                console.log(game);
 
                 socket.on('run', function(run) {
                     game.run();
+                    render(game.state.players);
                 })
 
-                function draw(player) {
+                function render(players) {
+                    for(i in players) {
+                        ctx.fillRect(players[i].x, players[i].y, players[i].w, players[i].h);
+                    }
+
                     requestAnimationFrame(() => {
-                        for(i in player) {
-                            ctx.fillRect(player[i].x, player[i].y, player[i].w, player[i].h);
-                        }
-                    })
+                        render(players);
+                    });
                 }
+
+                
             }
 
         </script>

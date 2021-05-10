@@ -2,16 +2,20 @@ const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
 const socketio = require('socket.io');
-const {createGame} = require('./game.js');
+const {createGame} = require('./gameServer.js');
 
-const io = socketio(server);
+const sockets = socketio(server);
 
 app.use(express.static("../client/src"));
 
 const game = createGame();
 console.log(game);
 
-io.on('connection', (socket) => {
+game.subscribe((command) => {   //subscribes the function that emits commands to the client side
+    sockets.emit(command.type, command);
+})
+
+sockets.on('connection', (socket) => {
     const playerId = socket.id;
     console.log(`Player ID: ${playerId}`);
 
