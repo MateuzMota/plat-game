@@ -29,13 +29,14 @@
 
                 socket.on('setup', function(state) {
                     game.setState(state);
+                    render(game.state.players);
                     
                 });
                 console.log(game);
 
                 socket.on('run', function(run) {
                     game.run();
-                    render(game.state.players);
+                    
                 })
 
                 function render(players) {
