@@ -31,8 +31,8 @@ function createGame() {
 
                 player.velocity.y += gravity;
 
-                if((player.y + player.velocity.y) > 485){
-                    player.y = 485;
+                if((player.y + player.velocity.y) > 710){
+                    player.y = 710;
                     player.velocity.y = 0;
                 } else { 
                     player.y += player.velocity.y;
