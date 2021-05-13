@@ -17,28 +17,34 @@ game.subscribe((command) => {   //subscribes the function that emits commands to
 
 sockets.on('connection', (socket) => {
     const playerId = socket.id;
-    console.log(`Player ID: ${playerId}`);
 
-
-    game.state.players.push(
-        {
-            id: playerId,
-            x: Math.random() * (100 - 1) + 1,
-            y: Math.random() * (100 - 1) + 1,
-            w: 10,
-            h: 10,
-            velocity: {
-                x: 0,
-                y: 0
+    socket.on('setup', function(nick) {
+        for(player of game.state.players) {
+            if(player.nickName == nick) {
+                return
             }
         }
-    )
 
+        game.state.players.push(
+            {
+                id: playerId,
+                nickName: nick,
+                x: Math.random() * (100 - 1) + 1,
+                y: Math.random() * (100 - 1) + 1,
+                w: 10,
+                h: 10,
+                velocity: {
+                    x: 0,
+                    y: 0
+                }
+            }
+        )
 
-
-    socket.on('setState', function() {
         socket.emit('setup', game.state);
-    });
+
+        console.log(`Player ID: ${playerId}`);
+        console.log(`>>>${nick} joined the game`);
+    })
 });
 
 setInterval(() => {

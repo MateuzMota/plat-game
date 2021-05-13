@@ -21,38 +21,56 @@
 
         <script>
             window.onload = function() {
+                
+
                 const game = createGame();
 
                 const screen = document.getElementById("canvas");
                 const ctx = screen.getContext('2d');
-
-                ctx.width = 1280;
-                ctx.height = 720;
+                
+                ctx.width = 1000;
+                ctx.height = 500;
                 ctx.fillStyle = "#333";
-
+                
                 const socket = io();
-
-                socket.emit('setState');
+                
+                //get nick and emit setup
+                document.getElementById("header").addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const nick = document.getElementById('nickInput').value;
+                    if(nick) {
+                        socket.emit('setup', nick);
+                    };
+                })
 
                 socket.on('setup', function(state) {
                     game.setState(state);
-                    render(game.state.players);
+                    render(game.state);
                     
                 });
-                console.log(game);
 
                 socket.on('run', function(run) {
                     game.run();
                     
                 })
 
-                function render(players) {
+                
+
+                function render(state) {
+                    const {players} = state;
+                    ctx.scale(1, 1)
+
+                    ctx.fillStyle = '#fff'
+                    ctx.fillRect(0, 0, ctx.width, ctx.height);
+
+
+                    ctx.fillStyle = '#000'
                     for(i in players) {
                         ctx.fillRect(players[i].x, players[i].y, players[i].w, players[i].h);
                     }
 
                     requestAnimationFrame(() => {
-                        render(players);
+                        render(state);
                     });
                 }
 
@@ -62,6 +80,5 @@
         </script>
         <script src="/socket.io/socket.io.js"></script>
         <script src="game.js"></script>
-        <script src="getNickName.js"></script>
     </body>
 </html>
